@@ -6,6 +6,7 @@ Given two strings 's' and 't', return true if 't' is an anagram of 's', and fals
 
 Explanation:
 - An anagram is a word formed by rearranging the letters of another word, using all the original letters exactly once.
+- Anagrams are of same length
 - The task is to compare two strings and determine if they are anagrams.
 */
 
