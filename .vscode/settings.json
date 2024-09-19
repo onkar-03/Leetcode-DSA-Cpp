@@ -1,3 +1,16 @@
 {
-  "cSpell.words": ["naaragm", "smap", "tmap"]
+  "cSpell.words": ["naaragm", "smap", "tmap"],
+  "files.associations": {
+    "*.html": "html",
+    "*.ejs": "html",
+    "*.js": "javascript",
+    "*.jsx": "javascriptreact",
+    "*.ts": "typescript",
+    "*.tsx": "typescriptreact",
+    "*.css": "css",
+    "*.scss": "scss",
+    "*.json": "jsonc",
+    "*.md": "markdown",
+    "vector": "cpp"
+  }
 }
