@@ -1,3 +1,7 @@
+
+#include <bits/stdc++.h>
+using namespace std;
+
 /*
     Given array of strings, group anagrams together (same letters diff order)
     Ex. strs = ["eat","tea","tan","ate","nat","bat"] -> [["bat"],["nat","tan"],["ate","eat","tea"]]
@@ -8,9 +12,7 @@
     Space: O(n x l)
 */
 
-#include <bits/stdc++.h>
-using namespace std;
-
+// --- Hash Map Solution
 class Solution
 {
 public:

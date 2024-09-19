@@ -49,6 +49,7 @@ Time Complexity: O(n) - Each element is processed once, and hash map operations 
 Space Complexity: O(n) - The hash map stores up to n elements, where n is the number of elements in the array.
 */
 
+// --- Hash Map Solution
 class Solution
 {
 public:

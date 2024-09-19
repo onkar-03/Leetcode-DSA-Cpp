@@ -10,7 +10,7 @@ Explanation:
 - The task is to compare two strings and determine if they are anagrams.
 */
 
-// --- Using Map
+// --- Hash Map Solution
 class Solution
 {
 public:
