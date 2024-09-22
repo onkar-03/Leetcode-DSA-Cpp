@@ -7,54 +7,52 @@ public:
   // Function to find the k-th lexicographical number from 1 to n
   int findKthNumber(int n, int k)
   {
-    // Start by assuming the answer is 1 (smallest number lexicographically)
-    long ans = 1;
+    long curr = 1; // Start with the smallest lexicographical number
+    k--;           // Adjust k since we are starting at 1 (to account for 0-based indexing)
 
-    // Loop until we reach the k-th number
-    for (int i = 1; i < k;)
+    // Loop until we find the k-th number
+    while (k > 0)
     {
-      // Calculate the gap between the current prefix (ans) and the next prefix (ans + 1)
-      const long gap = getGap(ans, ans + 1, n);
+      // Count how many numbers exist between the current prefix (curr) and the next prefix (curr + 1)
+      long countNum = count(curr, curr + 1, n);
 
-      // If adding this gap would still be less than or equal to k, move to the next prefix
-      if (i + gap <= k)
+      // If adding this count would still be less than or equal to k, move to the next prefix
+      if (k >= countNum) // If k is greater than or equal to count
       {
-        // Move forward by the gap size
-        i += gap;
-        // Move to the next lexicographical prefix
-        ++ans;
+        k -= countNum; // Decrease k by count since we can skip this entire range
+        curr++;        // Move to the next prefix
       }
       else
       {
-        // Otherwise, move one step deeper into the current prefix (multiply by 10)
-        ++i;
-        ans *= 10;
+        // We have a number in the current prefix, so we go one step deeper
+        curr *= 10; // Go deeper into the current prefix
+        k--;        // We visited one more number in this case
       }
     }
 
     // Return the k-th lexicographical number
-    return ans;
+    return curr;
   }
 
 private:
-  // Function to calculate the gap between two lexicographical prefixes
-  long getGap(long a, long b, long n)
+  // Function to calculate the count of numbers between two lexicographical prefixes
+  long count(long curr, long next, long n)
   {
-    long gap = 0;
+    long count = 0; // Initialize count of numbers in the range
 
     // While the current prefix is still within bounds
-    while (a <= n)
+    while (curr <= n)
     {
-      // Calculate how many numbers fall under the range of prefix 'a' and 'b'
-      // This is the difference between 'b' and 'a', but limited by 'n + 1'
-      gap += min(n + 1, b) - a;
+      // Count how many numbers fall under the range of prefix 'curr' to 'next'
+      count += min(n + 1, next) - curr; // The difference limited by 'n + 1'
+
       // Move to the next level of the tree (i.e., append another digit)
-      a *= 10;
-      b *= 10;
+      curr *= 10; // Go to the next level of the tree
+      next *= 10; // Update next to the next prefix
     }
 
-    // Return the total gap between prefix 'a' and 'b'
-    return gap;
+    // Return the total count between prefix 'curr' and 'next'
+    return count;
   }
 };
 
@@ -62,15 +60,15 @@ int main()
 {
   Solution solution;
 
-  // Example inputs: n = 13 and k = 2
-  int n = 13;
-  int k = 2;
+  // Example inputs: n = 22 and k = 14
+  int n = 22; // The upper limit for lexicographical numbers
+  int k = 14; // The k-th number to find
 
   // Call the function to find the k-th smallest lexicographical number
   int ans = solution.findKthNumber(n, k);
 
   // Output the result in a user-friendly format
-  cout << k << "th smallest Lexicographical Number from 1 to " << n << " is : " << ans;
+  cout << ans; // Print the k-th lexicographical number
 
   return 0;
 }

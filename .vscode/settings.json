@@ -11,6 +11,7 @@
     "*.scss": "scss",
     "*.json": "jsonc",
     "*.md": "markdown",
-    "vector": "cpp"
+    "vector": "cpp",
+    "random": "cpp"
   }
 }
