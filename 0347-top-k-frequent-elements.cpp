@@ -54,7 +54,7 @@ public:
       {
         // Insert all elements from the current bucket into the 'result' vector
         // using iterators buckets[i].begin() (points to the first element) and buckets[i].end()
-        // (points just past the last element) to specify the range of elements to insert.
+        // (points just past the last element) to specify the range of elements to insert.w
         result.insert(result.end(), buckets[i].begin(), buckets[i].end());
       }
     }

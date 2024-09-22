@@ -24,7 +24,7 @@ public:
     for (int i = 0; i <= 9; i++)
     {
       // Recursive call: multiply the current number by 10 and add the new digit
-      dfs(curr * 10 + i, n, ans); // This creates numbers like curr, curr0, curr1, ..., curr9
+      dfs(curr * 10 + i, n, ans); // This creates numbers like
     }
   }
 
