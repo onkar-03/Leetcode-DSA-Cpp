@@ -47,7 +47,7 @@ int main()
 {
   Solution solution;
 
-  int num = 13;
+  int num = 10;
 
   vector<int> result = solution.LexicalOrder(num);
 
