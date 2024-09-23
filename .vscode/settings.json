@@ -1,5 +1,5 @@
 {
-  "cSpell.words": ["naaragm", "smap", "tmap"],
+  "cSpell.words": ["leetcode", "naaragm", "smap", "tmap"],
   "files.associations": {
     "*.html": "html",
     "*.ejs": "html",
@@ -12,6 +12,7 @@
     "*.json": "jsonc",
     "*.md": "markdown",
     "vector": "cpp",
-    "random": "cpp"
+    "random": "cpp",
+    "string": "cpp"
   }
 }
