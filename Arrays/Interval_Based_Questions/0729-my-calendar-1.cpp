@@ -27,7 +27,9 @@ public:
   // Method to book a new time slot from start to end
   bool book(int start, int end)
   {
+
     // Loop through each existing booking in the calendar
+    // For first iteration this loop is skipped as 0 < 0 is false and the first booking is directly entered in teh calendar
     for (int i = 0; i < calendar.size(); i++)
     {
       // Get the i-th booking from the calendar
@@ -42,6 +44,7 @@ public:
         return false; // If there's an overlap, return false (booking cannot be made)
     }
 
+    // Inserting valid bookings in calendar
     // If no overlaps were found, add the new booking to the calendar
     calendar.push_back({start, end});
     // Return true indicating the booking was successful
@@ -75,7 +78,7 @@ public:
 
     // First iteration st.end()
     // Second Iteration {10,20} and so on ...
-    auto it = st.lower_bound({start, end}); // O(log n)
+    auto it = st.lower_bound({start, end}); // O(log n) and for n elements 0(n* log n)
 
     // Check if the current event overlaps with the next event
     // 'it' points to the first event that starts after 'start'
