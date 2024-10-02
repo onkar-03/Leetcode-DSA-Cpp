@@ -7,7 +7,7 @@ using namespace std;
 
 // Formulae to update Indexes in circular data structures is:
 // front = (front - 1 + K) % K; (K: Size of the DataStructure)
-// back = (back - 1 + K) % K; (K: Size of the DataStructure)
+// back = (back + 1) % K; (K: Size of the DataStructure)
 
 class MyCircularDeque
 {

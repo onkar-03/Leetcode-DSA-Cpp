@@ -13,6 +13,9 @@
     "*.md": "markdown",
     "vector": "cpp",
     "random": "cpp",
-    "string": "cpp"
+    "string": "cpp",
+    "bitset": "cpp",
+    "chrono": "cpp",
+    "algorithm": "cpp"
   }
 }
