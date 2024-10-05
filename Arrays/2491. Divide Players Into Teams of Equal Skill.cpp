@@ -83,7 +83,7 @@ public:
 
     // Target sum for each pair of players
     int target = SUM / teams;
-    long long chem = 0; // Variable to hold the total chemistry of valid pairs
+    long long chem = 0; // Variable to hold the total git comchemistry of valid pairs
 
     // Loop through each skill value to calculate chemistry
     for (int i = 0; i < n; i++)
