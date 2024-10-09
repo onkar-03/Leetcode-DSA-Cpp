@@ -16,6 +16,8 @@
     "string": "cpp",
     "bitset": "cpp",
     "chrono": "cpp",
-    "algorithm": "cpp"
+    "algorithm": "cpp",
+    "array": "cpp",
+    "regex": "cpp"
   }
 }
