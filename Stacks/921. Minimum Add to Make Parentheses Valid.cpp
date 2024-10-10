@@ -90,3 +90,7 @@ public:
     return open + size;
   }
 };
+
+// --- Why we used the open var here adn no in question 1963 ??
+// - In this question, the issue arises from an uneven number of opening and closing parentheses, necessitating the tracking of unmatched closing parentheses ) that lack corresponding opening parentheses (.
+// - In contrast, 1963. Minimum Number of Swaps to Make the String Balanced deals with a string that has an even number of brackets [], where the goal is to rearrange them through swaps, ensuring that the count of opening and closing brackets is equal but may be incorrectly ordered.
