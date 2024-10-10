@@ -76,3 +76,59 @@ public:
     return ramp;
   }
 };
+
+// Approach-3 : Two Pointer (Making use of hint from Approach-2, storing max to the right) - ACCEPTED
+// T.C : O(n)
+// S.C : O(n)
+class Solution
+{
+public:
+  int maxWidthRamp(vector<int> &nums)
+  {
+    // Get the size of the input array.
+    int n = nums.size();
+
+    // Initialize a variable to store the maximum ramp width found so far.
+    int ramp = 0;
+
+    // Create a vector to store the maximum element from the right side of the array for each index.
+    // This helps us check for the largest possible nums[j] for a given index i efficiently.
+    vector<int> maxToRight(n, 0);
+
+    // Set the last element of the maxToRight array to be the last element of nums.
+    // This is because there are no elements to the right of the last element.
+    maxToRight[n - 1] = nums[n - 1];
+
+    // Traverse the array in reverse to fill in the maxToRight array.
+    // Each element in maxToRight[i] will contain the maximum value from index i to n-2 in nums.
+    for (int i = n - 2; i >= 0; i--)
+    {
+      // For each i, store the maximum of the current nums[i] and the maximum value to its right.
+      maxToRight[i] = max(maxToRight[i + 1], nums[i]);
+    }
+
+    // Initialize two pointers, i and j.
+    // i is used to check the starting point of the ramp, and j is used to check the ending point.
+    int i = 0;
+    int j = 0;
+
+    // Loop while j is within the bounds of the array.
+    while (j < n)
+    {
+      // While nums[i] is greater than the maximum value in the remaining portion of the array, increment i to find the next valid starting point for the ramp.
+      while (i < j && nums[i] > maxToRight[j])
+      {
+        i++;
+      }
+
+      // If nums[i] <= maxToRight[j], calculate the width of the ramp (j - i) and update the maximum ramp width.
+      ramp = max(ramp, j - i);
+
+      // Increment j to continue checking for wider ramps.
+      j++;
+    }
+
+    // Return the maximum ramp width found.
+    return ramp;
+  }
+};
