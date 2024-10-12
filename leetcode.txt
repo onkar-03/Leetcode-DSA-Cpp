@@ -1,0 +1,22 @@
+// Calculate the remainder when num is divided by k
+// The formula(((num % k) + k) % k) ensures that the remainder is non-negative
+
+
+// Formulae to update Indexes in circular data structures is:
+// front = (front - 1 + K) % K; (K: Size of the DataStructure)
+// back = (back + 1) % K; (K: Size of the DataStructure)
+
+
+If we are asked All possible permutation / combination / subsets means backtracking
+backtracking is 
+1. do something
+2. explore
+3. revert step 1 and further explore
+
+
+deque front and back operation in O(1) Time
+
+
+stringStream method similar to Cin>> 
+
+interval based problems .. if not sorted try ki sort karlo before solving based on starting or ending or both 

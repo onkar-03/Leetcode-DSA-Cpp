@@ -94,10 +94,10 @@ public:
       }
 
       // If no chairs are free, assign a new chair number.
-      while (free.empty())
+      if (free.empty())
       {
         // No chairs available in 'free', so assign a new chair and increment chairNumber
-        occupied.push({departure, chairNumber++});
+        occupied.push({departure, chairNumber});
 
         // If this friend is the target friend, return the assigned chair number.
         if (arrival == targetFriendArrivalTime)
@@ -105,20 +105,25 @@ public:
           // Return the current chair number
           return chairNumber;
         }
+        // Increment chair number
+        chairNumber++;
       }
-
-      // If there are free chairs, we allocate the smallest available chair.
-      int leastChairAvailable = free.top();
-      free.pop(); // Remove the chair from the available queue
-
-      // If the current friend is the target friend, return the chair number they're assigned.
-      if (arrival == targetFriendArrivalTime)
+      else
       {
-        return leastChairAvailable;
-      }
 
-      // Assign the available chair to the current friend and mark it as occupied until their departure.
-      occupied.push({departure, leastChairAvailable});
+        // If there are free chairs, we allocate the smallest available chair.
+        int leastChairAvailable = free.top();
+        free.pop(); // Remove the chair from the available queue
+
+        // If the current friend is the target friend, return the chair number they're assigned.
+        if (arrival == targetFriendArrivalTime)
+        {
+          return leastChairAvailable;
+        }
+
+        // Assign the available chair to the current friend and mark it as occupied until their departure.
+        occupied.push({departure, leastChairAvailable});
+      }
     }
 
     return -1; // This line should never be reached if input guarantees a valid answer.
