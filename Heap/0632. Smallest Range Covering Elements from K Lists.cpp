@@ -2,8 +2,8 @@
 using namespace std;
 
 // Approach-1 (Using vector of indexes)
-// T.C : O(n*k)
-// S.C : O(k)
+// T.C : O(n*k): O(n): Iterate over all elements, O(k): Take out Min & Max Elements
+// S.C : O(k) : Used to Store the K Lists given to us
 class Solution
 {
 public:
@@ -82,6 +82,87 @@ public:
     }
 
     // Return the final smallest range that covers at least one element from each list.
+    return resultRange;
+  }
+};
+
+// Approach-2 (Using heap)
+// T.C : O(n*log(k))
+// S.C : O(k)
+class Solution
+{
+public:
+  vector<int> smallestRange(vector<vector<int>> &nums)
+  {
+    // Get the number of lists (k)
+    int k = nums.size();
+
+    // Min-heap (priority_queue) to store elements and their positions in the form of vectors
+    // Each element in the heap is a vector containing {value, list index, element index}
+    priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>> pq;
+
+    // Initialize the maximum element encountered in the current window
+    int maxElement = INT_MIN;
+
+    // Insert the first element of each list into the heap
+    for (int i = 0; i < k; i++)
+    {
+      // Push {element, list index, element index} for the first element of each list
+      pq.push({nums[i][0], i, 0});
+
+      // Update maxElement with the maximum of the first elements of all lists
+      maxElement = max(maxElement, nums[i][0]);
+    }
+
+    // Initialize the result range with very large values
+    // (so that any valid range found will be smaller than this).
+    vector<int> resultRange = {-1000000, 1000000};
+
+    // Process the elements in the heap to find the smallest range
+    while (!pq.empty())
+    {
+      // Get the smallest element (the root of the min-heap)
+      vector<int> current = pq.top();
+      pq.pop();
+
+      // minElement is the smallest element currently in the heap
+      int minElement = current[0];
+
+      // listIndex is the index of the list from which minElement came
+      int listIndex = current[1];
+
+      // elementIndex is the index of the element in that list
+      int elementIndex = current[2];
+
+      // Check if the current range (maxElement - minElement) is smaller than the previous best range
+      if (maxElement - minElement < resultRange[1] - resultRange[0])
+      {
+        // Update resultRange with the current smaller range
+        resultRange[0] = minElement;
+        resultRange[1] = maxElement;
+      }
+
+      // Move to the next element in the list from which the minElement came
+      if (elementIndex + 1 < nums[listIndex].size())
+      {
+        // Get the next element from the same list
+        int nextElement = nums[listIndex][elementIndex + 1];
+
+        // Push the next element into the min-heap, along with its list and element indices
+        pq.push({nextElement, listIndex, elementIndex + 1});
+
+        // Update maxElement to be the maximum of the current maxElement and the nextElement
+        maxElement = max(maxElement, nextElement);
+      }
+      else
+      {
+        // If the list has no more elements, stop the process
+        // since we can no longer include all lists in the range
+        break;
+      }
+    }
+
+    // Return the smallest range found
     return resultRange;
   }
 };
