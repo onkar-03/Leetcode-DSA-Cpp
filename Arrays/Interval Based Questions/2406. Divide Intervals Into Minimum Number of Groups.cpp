@@ -14,9 +14,9 @@ public:
     // This ensures that we process them in order.
     sort(begin(intervals), end(intervals));
 
-    // Step 2: Create a min-heap (priority queue) to keep track of the end points of the intervals.
+    // Step 2: Create a min-heap to keep track of the end points of the intervals.
     // This will help us efficiently manage overlapping intervals.
-    priority_queue<int, vector<int>, greater<int>> pq; // Stores end points of groups
+    priority_queue<int, vector<int>, greater<int>> pq;
 
     // Step 3: Iterate through each interval in the sorted list.
     for (vector<int> &interval : intervals)
@@ -28,7 +28,7 @@ public:
       // If this condition is true, it means the current interval does not overlap with the group represented by the smallest end point.
       if (!pq.empty() && pq.top() < start)
       {
-        // Step 5: Remove the group from the heap since the current interval can start a new group.
+        // Step 5: Remove the end from heap as the current one can form a group with it
         pq.pop();
       }
 
