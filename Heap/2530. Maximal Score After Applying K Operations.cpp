@@ -1,6 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Approach (standard heap approach)
+// T.C : O(n + k*logn) O(n) during Heapify and k*logn for Pushing Elements into the Heap
+// S.C : O(k)
 class Solution
 {
 public:
