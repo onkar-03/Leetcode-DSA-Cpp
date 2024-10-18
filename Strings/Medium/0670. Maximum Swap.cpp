@@ -1,6 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Approach-1 (using space to store maxRight Indices)
+// T.C : O(n)
+// S.C : O(n)
 class Solution
 {
 public:
@@ -46,6 +49,9 @@ public:
   }
 };
 
+// Approach-2 (using constant space)
+// T.C : O(n)
+// S.C : O(1)
 class Solution
 {
 public:
