@@ -19,4 +19,6 @@ deque front and back operation in O(1) Time
 
 stringStream method similar to Cin>> 
 
-interval based problems .. if not sorted try ki sort karlo before solving based on starting or ending or both 
+In interval based problems .. if not sorted Try ki sort karlo before solving based on starting or ending or both 
+
+Expression evaluate / parenthesis always use stack
