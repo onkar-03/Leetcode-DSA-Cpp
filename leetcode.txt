@@ -22,3 +22,9 @@ stringStream method similar to Cin>>
 In interval based problems .. if not sorted Try ki sort karlo before solving based on starting or ending or both 
 
 Expression evaluate / parenthesis always use stack
+
+If we are exploring options means different flows / paths means there is Recursion
+
+All possible substring subsets etc ... Backtracking
+
+Backtracking = 1.Do 2.Explore 3.Undo
