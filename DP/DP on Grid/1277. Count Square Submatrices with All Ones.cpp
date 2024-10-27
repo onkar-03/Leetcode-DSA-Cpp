@@ -2,7 +2,8 @@
 using namespace std;
 
 // Question Same as Maximal Square (Leetcode-221)
-// Approach - 1 (Simple Recursion no Memoization)
+
+// Approach - 1 (Simple Recursion no Memoization) gives TLE
 // Time Complexity: O(3^(m+n)) or O(2^(m+n))
 // Space Complexity: O(m + n) due to the recursive call stack depth.
 
@@ -107,6 +108,56 @@ public:
         result += solve(i, j, grid, t);
       }
     }
+    // Return the final count of squares
+    return result;
+  }
+};
+
+// Approach - 3 (Simple Bottom Up - Same as Maximal Square (Leetcode-221))
+// Time Complexity: O(m*n) - Each cell is processed once.
+// Space Complexity: O(m*n) - Storage for the memoization table (2D array).
+
+class Solution
+{
+public:
+  int countSquares(vector<vector<int>> &matrix)
+  {
+    // Check for empty matrix
+    if (matrix.size() == 0)
+      return 0;
+
+    int m = matrix.size();    // Number of rows in the matrix
+    int n = matrix[0].size(); // Number of columns in the matrix
+
+    // Initialize a 2D vector for storing the number of squares ending at (i,j)
+    vector<vector<int>> t(m, vector<int>(n, 0));
+
+    int result = 0; // Variable to hold the final count of squares
+
+    // Iterate through each cell in the matrix
+    for (int i = 0; i < m; i++)
+    {
+      for (int j = 0; j < n; j++)
+      {
+        // If we are in the first row or first column, the value is same as the matrix
+        if (i == 0 || j == 0)
+        {
+          t[i][j] = matrix[i][j];
+        }
+        else
+        {
+          // If the current cell in the matrix is 1, calculate the size of the square
+          if (matrix[i][j] == 1)
+          {
+            // The size of the square is 1 plus the minimum of the three adjacent squares
+            t[i][j] = 1 + min({t[i - 1][j], t[i][j - 1], t[i - 1][j - 1]});
+          }
+        }
+        // Accumulate the count of squares found
+        result += t[i][j];
+      }
+    }
+
     // Return the final count of squares
     return result;
   }
