@@ -101,6 +101,7 @@ public:
     n = grid[0].size(); // Get the number of columns
 
     // Initialize memoization table with -1
+    // Create 2D Vector with m rows and n columns in each row all with value -1
     vector<vector<int>> t(m, vector<int>(n, -1));
 
     // Initialize the result to store the maximum moves
