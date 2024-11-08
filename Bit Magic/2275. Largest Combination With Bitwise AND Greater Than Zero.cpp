@@ -15,13 +15,14 @@ public:
     // Variable to store the maximum count of set bits at any position
     int result = 0;
 
-    // Loop through each bit position from 0 to 23 (since numbers fit within 24 bits)
+    // Loop through each bit position from 0 to 23 (since numbers fit within 24 bits)\
+    // Number of Bits to represent a Number: Floor of Log2(N) + 1
     for (int i = 0; i < 24; i++) // O(24)
     {
 
       // For each bit position, check all numbers in the candidates array
       for (int &num : candidates) // O(n)
-      { 
+      {
         // Check if the i-th bit in the current number is set (1)
         if ((num & (1 << i)) != 0)
         {

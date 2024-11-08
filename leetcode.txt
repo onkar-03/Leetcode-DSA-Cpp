@@ -30,3 +30,5 @@ All possible substring subsets etc ... Backtracking
 Backtracking = 1.Do 2.Explore 3.Undo
 
 BT Problems Recursion Zindabad, Recursion Leap of FAITH
+
+Number of Bits to represent a Number : Floor of Log2(N) + 1
