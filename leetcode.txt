@@ -32,3 +32,5 @@ Backtracking = 1.Do 2.Explore 3.Undo
 BT Problems Recursion Zindabad, Recursion Leap of FAITH
 
 Number of Bits to represent a Number : Floor of Log2(N) + 1
+
+All bitwise operations, like XOR, AND, and OR, operate directly on the binary representations of numbers

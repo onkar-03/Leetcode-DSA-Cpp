@@ -4,7 +4,6 @@ using namespace std;
 // Approach: Using XOR properties to find the maximum XOR for each prefix
 // Time Complexity: O(n) - we iterate through the array once
 // Space Complexity: O(1) - only a fixed amount of extra space is used
-
 class Solution
 {
 public:
@@ -27,7 +26,7 @@ public:
     // Create a mask where all bits are set to 1 up to maximumBit
     // This is used to "flip" bits to maximize the XOR value for k
     // Example: If maximumBit is 3, mask will be 111 (7 in binary)
-    // Formula = (2^n - 1) in Binary
+    // Formula = (2^n - 1) in Binary which is same as (1 << maximumBit) - 1
     int mask = ((1 << maximumBit) - 1);
 
     // Loop through each prefix, adjusting XOR and calculating maximum XOR
