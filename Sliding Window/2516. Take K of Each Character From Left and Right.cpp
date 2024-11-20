@@ -1,6 +1,47 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Approach-1 (Brute Force - Recursion)
+// T.C : O(2^n)
+// S.C : O(1) (But recursion stack space we are taking = O(n) in worst case i.e. depth of recursion will be equal to length of string)
+class Solution
+{
+public:
+  int result = INT_MAX;
+
+  void solve(string &s, int k, int i, int j, int minutes, vector<int> freq)
+  {
+    if (freq[0] >= k && freq[1] >= k && freq[2] >= k)
+    {
+      result = min(result, minutes);
+      return;
+    }
+    if (i > j) // all characters visited
+      return;
+
+    // Option-1 : Delete from left
+    vector<int> tempFreqLeft = freq;
+    tempFreqLeft[s[i] - 'a'] += 1;
+    solve(s, k, i + 1, j, minutes + 1, tempFreqLeft);
+
+    // De;ete from right
+    vector<int> tempFreqRight = freq;
+    tempFreqRight[s[j] - 'a'] += 1;
+    solve(s, k, i, j - 1, minutes + 1, tempFreqRight);
+  }
+
+  int takeCharacters(string s, int k)
+  {
+    vector<int> freq(3, 0); // a, b, c
+    int i = 0;
+    int j = s.length() - 1;
+    int minutes = 0;
+    solve(s, k, i, j, minutes, freq);
+
+    return result == INT_MAX ? -1 : result;
+  }
+};
+
 // Approach-2 (Sliding Window)
 // T.C : O(n)
 // S.C : O(1)
