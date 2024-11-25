@@ -36,3 +36,11 @@ Number of Bits to represent a Number : Floor of Log2(N) + 1
 All bitwise operations, like XOR, AND, and OR, operate directly on the binary representations of numbers
 
 Cummulative OR is always non decreasing either stays the same or increases
+
+BFS: Shortest Path / Minimum Moves
+DFS: 
+
+Approach BFS
+1. Start State in Queue -> Input the Start and if it's a 2D Matrix etc... rather than having a complex queue input the Start Input as a String 
+2. If we input a state as a string into a queue, we can map all the possible moves of an object (or entity) as needed from a 2D matrix. By using string representation, we can effectively translate as a 2D Matrix and also reconstruct if required
+
