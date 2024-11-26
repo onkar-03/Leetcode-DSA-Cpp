@@ -26,6 +26,7 @@ public:
     // The target configuration for the board
     string target = "123450";
 
+    // Method 1
     // Mapping of possible moves for each index of '0' in the string possible for a 2X3 Matrix
     unordered_map<int, vector<int>> mp;
     mp[0] = {1, 3};    // '0' at index 0 can swap with indices 1 and 3
@@ -34,6 +35,11 @@ public:
     mp[3] = {0, 4};    // '0' at index 3 can swap with indices 0 and 4
     mp[4] = {1, 3, 5}; // '0' at index 4 can swap with indices 1, 3, and 5
     mp[5] = {2, 4};    // '0' at index 5 can swap with indices 2 and 4
+
+    // Method 2
+    // Another way to store all possible moves for each index of '0'
+    // Directions for possible swaps based on '0' position as a Vector
+    vector<vector<int>> mp = {{1, 3}, {0, 2, 4}, {1, 5}, {0, 4}, {1, 3, 5}, {2, 4}};
 
     // Set to track visited states to avoid revisiting
     unordered_set<string> visited;

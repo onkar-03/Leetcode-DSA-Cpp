@@ -43,4 +43,12 @@ DFS:
 Approach BFS
 1. Start State in Queue -> Input the Start and if it's a 2D Matrix etc... rather than having a complex queue input the Start Input as a String 
 2. If we input a state as a string into a queue, we can map all the possible moves of an object (or entity) as needed from a 2D matrix. By using string representation, we can effectively translate as a 2D Matrix and also reconstruct if required
+3. Fix the Target maybe a Final State / String
+4. Perform BFS
+
+2 TYPES OF BFS CODE: 
+A. When we want to find LEVEL: Find que.size() and then check all the elements at a level if that the required one
+
+- used in question 0773 2d arrays leetcode 
+B. 
 
