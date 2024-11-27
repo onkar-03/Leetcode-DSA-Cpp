@@ -37,7 +37,7 @@ All bitwise operations, like XOR, AND, and OR, operate directly on the binary re
 
 Cummulative OR is always non decreasing either stays the same or increases
 
-BFS: Shortest Path / Minimum Moves
+BFS: Shortest Path / Minimum Moves / Unweighted Graph
 DFS: 
 
 Approach BFS
@@ -47,8 +47,9 @@ Approach BFS
 4. Perform BFS
 
 2 TYPES OF BFS CODE: 
-A. When we want to find LEVEL: Find que.size() and then check all the elements at a level if that the required one
+A. When we want to find LEVEL Info: Level by Level traversal i.e. Find que.size() and then check all the elements at a level if that the required one, if not push all the states in queue and move ahead
 
-- used in question 0773 2d arrays leetcode 
-B. 
+- used in question 0773 2D arrays leetcode 
+
+B. Normal BFS unless que is not empty take the front element pop it and check and so on 
 
