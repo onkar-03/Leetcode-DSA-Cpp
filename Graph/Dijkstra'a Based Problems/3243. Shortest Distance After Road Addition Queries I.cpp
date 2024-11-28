@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// Approach 1 (Using BFS (edges are unweighted)
+// Approach 1 (Using BFS (edges are unweighted))
 // T.C : O(q * (E log(V)) , V = number of vertices and E = number of edges
 // S.C : O(V+E)
 class Solution
@@ -88,27 +88,34 @@ public:
 class Solution
 {
 public:
-// Define a pair for priority queue to store (distance, node)
+// Define a pair for priority queue to store (node, weight)
 #define P pair<int, int>
 
-  // Adjacency list to represent the graph
-  unordered_map<int, vector<P>> adj;
-
-  // Function to find the shortest distance from node 0 to node n-1 using Dijkstra's Algorithm
-  int dijkstra(int n)
+  int dijkstra(int n, unordered_map<int, vector<P>> adj)
   {
-    vector<int> result(n, INT_MAX); // Initialize distances to all nodes as infinity (INT_MAX)
-    result[0] = 0;                  // Distance to source node (0) is 0
+    // Shortest Distance from source to i-th Node
+    // Initially setting all distances of all nodes as infinity (INT_MAX)
+    vector<int> result(n, INT_MAX);
 
-    // Min-heap (priority queue) to store (distance, node), sorted by distance
+    // Distance to source node (0) is 0
+    result[0] = 0;
+
+    // Min-heap (priority queue) to store (node, weight), sorted by distance
     priority_queue<P, vector<P>, greater<P>> pq;
-    pq.push({0, 0}); // Start with the source node (0) with distance 0
+
+    // Start with the source node (0) with distance 0
+    pq.push({0, 0});
 
     // Continue until all reachable nodes are processed
     while (!pq.empty())
     {
-      int d = pq.top().first;     // Distance to the current node
-      int node = pq.top().second; // Current node
+      // Distance to the current node
+      int d = pq.top().first;
+
+      // Current node
+      int node = pq.top().second;
+
+      // Pop it from the Queue now
       pq.pop();
 
       // If we have already found a shorter distance to the current node, skip
@@ -137,15 +144,20 @@ public:
     return result[n - 1];
   }
 
-  // Function to process queries and return shortest distances after each query
   vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>> &queries)
   {
-    vector<int> result; // To store the results for each query
+
+    // Adjacency list to represent the graph
+    unordered_map<int, vector<P>> adj;
+
+    vector<int>
+        result; // To store the results for each query
 
     // Build the initial graph with direct connections from i to i+1
     for (int i = 0; i < n - 1; ++i)
     {
-      adj[i].push_back({i + 1, 1}); // Connect node i to i+1 with weight 1
+      // Connect node i to i+1 with weight 1
+      adj[i].push_back({i + 1, 1});
     }
 
     // Process each query
@@ -158,7 +170,7 @@ public:
       adj[u].push_back({v, 1});
 
       // Run Dijkstra's algorithm to find the shortest distance from node 0 to node n-1
-      int d = dijkstra(n);
+      int d = dijkstra(n, adj);
 
       // Store the result of the current query
       result.push_back(d);
