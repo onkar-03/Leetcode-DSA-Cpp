@@ -26,10 +26,17 @@ public:
     // Traverse both strings
     while (i < m && j < n)
     {
-      // Check if the current character of str1 matches the current character of str2,
-      // or can be incremented by 1 to match, or wraps around (e.g., 'z' -> 'a').
-      if ((str1[i] == str2[j]) ||
+      // Check if the current character of str1 can match the current character of str2
+      if (
+          // Condition 1: The characters are exactly the same
+          (str1[i] == str2[j]) ||
+
+          // Condition 2: The character in str1 can be incremented by 1 to match the character in str2
+          // For example, 'a' in str1 can become 'b' in str2
           (str1[i] + 1 == str2[j]) ||
+
+          // Condition 3: Handle wrap-around cases, where 'z' in str1 wraps around to match 'a' in str2
+          // This ensures cyclic behavior in the character matching
           (str1[i] - 25 == str2[j]))
       {
         // Move pointer j to the next character in str2
