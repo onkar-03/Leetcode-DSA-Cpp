@@ -4,8 +4,6 @@ using namespace std;
 class Solution
 {
 public:
-  // Helper function to check if it is possible to make all elements in nums <= mid
-  // using at most maxOps operations.
   bool isPossible(vector<int> &nums, int maxOps, int mid)
   {
     int totalOps = 0; // Keeps track of the total operations needed.

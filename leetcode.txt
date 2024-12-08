@@ -53,3 +53,4 @@ A. When we want to find LEVEL Info: Level by Level traversal i.e. Find que.size(
 
 B. Normal BFS unless que is not empty take the front element pop it and check and so on 
 
+maximize min / minimize max === Binary Search in Answer Problems
