@@ -46,17 +46,21 @@ public:
 };
 
 // Approach-2 (Recursion + Memoization and Sorting)
-// T.C : O(n * logn) - Sorting takes O(n * logn), and with memoization, we visit at most n states,
-//        where each state involves a binary search (O(logn)).
+// T.C : O(n * logn) - Sorting takes O(n * logn), and with memoization, we visit at most n states, where each state involves a binary search (O(logn)).
 // S.C : O(n*3) ~= O(n) - Space used for memoization table and recursion stack.
 class Solution
 {
 public:
-  int n;            // Total number of events
-  int t[100001][3]; // Memoization table: t[i][count] stores the max value starting from event i with `count` events taken
+  // Total number of events
+  int n;
 
-  // Helper function: Perform binary search to find the next valid event
+  // Memoization table: t[i][count] stores the max value starting from event i with `count` events taken
+  // 100001 coz we have max value as 10^5
+  // 3 as max count we can pick is 2
+  int t[100001][3];
+
   // Returns the index of the first event starting after `endTime`
+  // Performs 'upper_bound' of EndTime of Current Event
   int binarySearch(vector<vector<int>> &events, int endTime)
   {
     int l = 0, r = n - 1;
@@ -66,11 +70,14 @@ public:
     {
       int mid = l + (r - l) / 2; // Midpoint calculation to avoid overflow
 
+      // If we get a valid Start thats after the ending of the current event then we store it and look for any further events to the left of the mid that fulfill the same condition
       if (events[mid][0] > endTime)
       {
         result = mid; // Potential valid event
         r = mid - 1;  // Narrow search to the left
       }
+
+      // Otherwise as the start is still lesser than the end the current event list that's already sorted then we move to further greater values of start position i.e to the right of mid
       else
       {
         l = mid + 1; // Narrow search to the right
@@ -95,7 +102,7 @@ public:
       return t[i][count];
     }
 
-    // Find the next valid event index after the current event
+    // Find the next valid starting index of event thats greater than the ending after the current event
     int nextValidEventIndex = binarySearch(events, events[i][1]);
 
     // Option 1: Take the current event and proceed to the next valid event
