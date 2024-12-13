@@ -118,3 +118,43 @@ public:
     return maxBeauty; // Return the maximum beauty found
   }
 };
+
+// Approach-3: Using Sliding Window
+// Time Complexity: O(nlogn) - Sorting takes O(nlogn), and the sliding window runs in O(n).
+// Space Complexity: O(1) - No extra space used apart from variables.
+class Solution
+{
+public:
+  int maximumBeauty(vector<int> &nums, int k)
+  {
+    int n = nums.size(); // Get the size of the input array
+
+    // Step 1: Sort the array to make it easier to calculate valid ranges
+    sort(nums.begin(), nums.end());
+
+    int i = 0;         // Start of the sliding window
+    int j = 0;         // End of the sliding window
+    int maxBeauty = 0; // Stores the maximum number of elements in any valid range
+
+    // Step 2: Use the sliding window to find valid ranges
+    while (i < n)
+    { // Iterate through each element as the start of the range
+
+      // Expand the window by increasing j as long as the range [nums[i], nums[j]] satisfies the condition
+      while (j < n && nums[j] - nums[i] <= 2 * k)
+      {
+        j++; // Increment j to include the next element in the range
+      }
+
+      // Calculate the size of the current range and update maxBeauty
+      // j - i gives the count of elements in the range [nums[i], nums[j-1]]
+      maxBeauty = max(maxBeauty, j - i);
+
+      // Slide the window by moving the start pointer i
+      i++;
+    }
+
+    // Step 3: Return the maximum beauty found
+    return maxBeauty;
+  }
+};
