@@ -40,7 +40,7 @@ public:
   }
 };
 
-// Approach-2 (Using std::priority_queue)
+// Approach-2 (Using Min Heap priority_queue)
 // Time Complexity: O(nlogn + k*logn)
 // - O(nlogn) for inserting all elements into the priority queue initially.
 // - O(k*logn) for performing k operations, where each operation involves removing and adding an element to the priority queue.
@@ -51,23 +51,19 @@ class Solution
 public:
 // Macro to define a shorthand for pair<int, int> as P
 #define P pair<int, int>
-
-  // Function to modify the input vector based on the given parameters
-  // nums: input vector of integers
-  // k: number of iterations
-  // multiplier: value by which the minimum element is multiplied
   vector<int> getFinalState(vector<int> &nums, int k, int multiplier)
   {
-    int n = nums.size(); // Get the size of the input vector
+    // Get the size of the input vector
+    int n = nums.size();
 
     // Min-heap (priority_queue) to store pairs of (element value, index)
-    // The `greater<P>` comparator ensures that the heap is sorted by the smallest element
     priority_queue<P, vector<P>, greater<P>> minHeap;
 
     // Insert all elements along with their indices into the min-heap
     for (int i = 0; i < n; i++)
     {
-      minHeap.push({nums[i], i}); // Push a pair (value, index)
+      // Push a pair (value, index)
+      minHeap.push({nums[i], i});
     }
 
     // Perform the operation 'k' times
@@ -85,6 +81,67 @@ public:
 
       // Push the updated value along with its index back into the min-heap
       minHeap.push({nums[idx], idx});
+    }
+
+    // Return the modified vector after 'k' iterations
+    return nums;
+  }
+};
+
+// Approach-3 (Using vector as heap for O(n) heapify)
+// Time Complexity: O(n + k * logn)
+// - O(n) for building the heap initially using `make_heap`.
+// - O(k * logn) for k operations, where each operation involves popping and pushing elements into the heap.
+// Space Complexity: O(n)
+// - The vector `vec` stores all elements of the array as pairs of value and index.
+
+class Solution
+{
+public:
+  vector<int> getFinalState(vector<int> &nums, int k, int multiplier)
+  {
+    // Get the size of the input vector
+    int n = nums.size();
+
+    // Create a vector of pairs (value, index) to store elements along with their indices
+    vector<pair<int, int>> vec(n);
+
+    // Initialize the vector with the array elements and their indices
+    for (int i = 0; i < n; i++)
+    {
+      vec[i] = {nums[i], i}; // Pair each value with its index
+    }
+
+    // Build a min-heap from the vector using `make_heap` with `greater<>` comparator
+    make_heap(vec.begin(), vec.end(), greater<>());
+
+    // Perform the operation 'k' times
+    while (k--)
+    {
+      // Remove the smallest element from the heap
+
+      // Move the smallest element to the end of the vector
+      pop_heap(begin(vec), end(vec), greater<>());
+
+      // Extract the smallest element (value, index)
+      pair<int, int> temp = vec.back();
+
+      // Remove it from the vector
+      vec.pop_back();
+
+      // Retrieve the index and value of the smallest element
+      int idx = temp.second;   // Index of the smallest element
+      int number = temp.first; // Value of the smallest element
+
+      // Multiply the smallest element by the multiplier
+      nums[idx] = number * multiplier;
+
+      // Add the updated element back into the heap
+      // Push the updated pair (value, index) to the vector
+      vec.push_back({nums[idx], idx});
+
+      // Re-heapify to maintain the min-heap property
+      push_heap(begin(vec), end(vec), greater<>());
     }
 
     // Return the modified vector after 'k' iterations
