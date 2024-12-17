@@ -114,8 +114,7 @@ public:
     }
 
     // Build a min-heap from the vector using `make_heap` with `greater<>` comparator
-    // make_heap(vec.begin(), vec.end(), greater<>());
-    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>()> pq(begin(vec), end(vec));
+    make_heap(vec.begin(), vec.end(), greater<pair<int, int>>());
 
     // Perform the operation 'k' times
     while (k--)
@@ -123,7 +122,7 @@ public:
       // Remove the smallest element from the heap
 
       // Move the smallest element to the end of the vector
-      pop_heap(begin(vec), end(vec), greater<>());
+      pop_heap(begin(vec), end(vec), greater<pair<int, int>>());
 
       // Extract the smallest element (value, index)
       pair<int, int> temp = vec.back();
@@ -143,7 +142,7 @@ public:
       vec.push_back({nums[idx], idx});
 
       // Re-heapify to maintain the min-heap property
-      push_heap(begin(vec), end(vec), greater<>());
+      push_heap(begin(vec), end(vec), greater<pair<int, int>>());
     }
 
     // Return the modified vector after 'k' iterations
@@ -175,7 +174,7 @@ public:
     }
 
     // Build a min-heap from the vector using priority_queue
-    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq(begin(vec), end(vec));
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq(begin(vec), end(vec));
 
     // Perform the operation 'k' times
     while (k--)
