@@ -63,3 +63,71 @@ public:
     return result;
   }
 };
+
+// Approach-2: Using Max-Heap (Priority Queue) + Frequency Table
+// Time Complexity: O(n) - Linear traversal of the input string and heap operations.
+// Space Complexity: O(26) ≈ O(1) - Fixed space for frequency table and heap of size <= 26.
+
+class Solution
+{
+public:
+  string repeatLimitedString(string s, int repeatLimit)
+  {
+    // Step 1: Create a frequency table for all characters in the string
+    vector<int> count(26, 0); // To store frequency of characters ('a' to 'z')
+    for (char &ch : s)
+    {
+      count[ch - 'a']++; // Increment the frequency of the current character
+    }
+
+    // Step 2: Build a Max-Heap (priority queue) to process characters in descending order
+    priority_queue<char> pq;
+    for (int i = 0; i < 26; i++)
+    {
+      if (count[i] > 0)
+      {
+        char ch = 'a' + i; // Convert index back to character
+        pq.push(ch);       // Add the character to the heap
+      }
+    }
+
+    string result; // To store the final output string
+
+    // Step 3: Process the heap to form the repeat-limited string
+    while (!pq.empty())
+    {
+      char ch = pq.top(); // Fetch the most frequent (largest lexicographical) character
+      pq.pop();
+
+      // Step 4: Append 'repeatLimit' or remaining occurrences of the current character
+      int freq = min(count[ch - 'a'], repeatLimit);
+      result.append(freq, ch); // Append 'freq' copies of 'ch' to the result
+
+      count[ch - 'a'] -= freq; // Reduce the count for 'ch'
+
+      // Step 5: Handle remaining characters in the heap
+      if (count[ch - 'a'] > 0 && !pq.empty())
+      {
+        // Fetch the next most frequent character
+        char nextChar = pq.top();
+        pq.pop();
+
+        // Append one occurrence of 'nextChar' to avoid violating repeatLimit
+        result.push_back(nextChar);
+        count[nextChar - 'a']--;
+
+        // If 'nextChar' still has remaining occurrences, push it back into the heap
+        if (count[nextChar - 'a'] > 0)
+        {
+          pq.push(nextChar);
+        }
+
+        // Push the current character 'ch' back into the heap for further processing
+        pq.push(ch);
+      }
+    }
+
+    // Step 6: Return the constructed repeat-limited string
+    return result;
+  }
+};
