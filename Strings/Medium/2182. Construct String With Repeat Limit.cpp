@@ -84,6 +84,7 @@ public:
     priority_queue<char> pq;
     for (int i = 0; i < 26; i++)
     {
+      // Only if the characters are there in the Input String i.e. their frequency is greater than zero then we put it in the Heap
       if (count[i] > 0)
       {
         char ch = 'a' + i; // Convert index back to character
@@ -103,9 +104,11 @@ public:
       int freq = min(count[ch - 'a'], repeatLimit);
       result.append(freq, ch); // Append 'freq' copies of 'ch' to the result
 
-      count[ch - 'a'] -= freq; // Reduce the count for 'ch'
+      // Reduce the count for 'ch'
+      count[ch - 'a'] -= freq;
 
       // Step 5: Handle remaining characters in the heap
+      // Looking for teh next greatest character present
       if (count[ch - 'a'] > 0 && !pq.empty())
       {
         // Fetch the next most frequent character
