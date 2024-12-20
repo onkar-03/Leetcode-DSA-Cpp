@@ -50,3 +50,43 @@ public:
     return chunksCount; // Return the total number of chunks
   }
 };
+
+// Approach-2: Using Cumulative Sum to determine the maximum number of chunks
+// Time Complexity: O(n) -> Single pass through the array
+// Space Complexity: O(1) -> Constant space usage (no extra space apart from a few variables)
+class Solution
+{
+public:
+  int maxChunksToSorted(vector<int> &arr)
+  {
+    // The size of the input array
+    int n = arr.size();
+
+    // Variables to store the cumulative sum of the array elements and indices
+    int cumSum = 0;    // Cumulative sum of array elements
+    int normalSum = 0; // Sum of indices (acts as expected sum if array was sorted)
+
+    // Counter to track the number of chunks that can be formed
+    int chunksCount = 0;
+
+    // Traverse through the array
+    for (int i = 0; i < n; i++)
+    {
+      // Update the cumulative sum of array elements
+      cumSum += arr[i];
+
+      // Update the expected sum of indices if the array was sorted
+      normalSum += i;
+
+      // If the cumulative sum of elements matches the expected sum of indices,
+      // it indicates that all elements up to this point can form a sorted chunk
+      if (cumSum == normalSum)
+      {
+        chunksCount++; // Increment the count of chunks
+      }
+    }
+
+    // Return the total number of chunks that can be formed
+    return chunksCount;
+  }
+};
