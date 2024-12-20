@@ -78,3 +78,41 @@ public:
     return root;
   }
 };
+
+// Approach-2 - Tricky DFS (explained the trick on how to write such DFS)
+// T.C : O(n) : As we travel each level once
+// S.C : O(n) : Recursion using system Stack for Storing all Nodes
+class Solution
+{
+public:
+  void solve(TreeNode *L, TreeNode *R, int level)
+  {
+    // Base case: if either of the nodes is NULL, return
+    if (L == NULL || R == NULL)
+    {
+      return;
+    }
+
+    // If the current level is odd, swap the values of the nodes
+    if (level % 2 == 1)
+    {
+      TreeNode *temp = L; // Temporarily store the left node
+      L = R;              // Assign the right node to the left
+      R = temp;           // Assign the stored node to the right
+    }
+
+    // Recursively call for the next level
+    // Proceed symmetrically: left of L with right of R and right of L with left of R
+    solve(L->left, R->right, level + 1);
+    solve(L->right, R->left, level + 1);
+  }
+
+  TreeNode *reverseOddLevels(TreeNode *root)
+  {
+    // Start the recursive function with the left and right children of the root at level 1
+    solve(root->left, root->right, 1);
+
+    // Return the modified tree
+    return root;
+  }
+};
