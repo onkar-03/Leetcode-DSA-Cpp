@@ -27,7 +27,8 @@ public:
     sort(begin(sortedVec), end(sortedVec));
 
     // Map to track the indices of the elements in the original vector
-    unordered_map<int, int> mp; // Key: value in vec, Value: index of that value in vec
+    // Key: value in vec, Value: index of that value in vec
+    unordered_map<int, int> mp; 
     for (int i = 0; i < vec.size(); i++)
     {
       mp[vec[i]] = i; // Populate the map
