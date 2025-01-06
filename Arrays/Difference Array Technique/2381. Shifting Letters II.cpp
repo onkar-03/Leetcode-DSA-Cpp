@@ -19,17 +19,19 @@ public:
       int end = shift[1];       // Ending index of the shift
       int direction = shift[2]; // Direction of the shift: 1 = forward, 0 = backward
 
+      // Forward shift
       if (direction == 1)
-      {                   // Forward shift
+      {
         diff[start] += 1; // Increment at the starting index
         if (end + 1 < n)  // Decrement after the ending index (to mark the end of the range)
           diff[end + 1] -= 1;
       }
+      // Backward shift
       else
-      {                   // Backward shift
-        diff[start] -= 1; // Decrement at the starting index
-        if (end + 1 < n)  // Increment after the ending index
-          diff[end + 1] += 1;
+      {
+        diff[start] -= 1;     // Decrement at the starting index
+        if (end + 1 < n)      // Increment after the ending index
+          diff[end + 1] += 1; // -(-1) = +1
       }
     }
 
@@ -42,9 +44,12 @@ public:
     // Step 3: Apply the calculated shifts to the string
     for (int i = 0; i < n; ++i)
     {
-      int shift = diff[i] % 26; // Reduce the shift to fit within the range [0, 25]
+      // Reduce the shift to fit within the range [0, 25]
+      int shift = diff[i] % 26;
+
+      // Handle negative shifts (convert to equivalent positive shift)
       if (shift < 0)
-        shift += 26; // Handle negative shifts (convert to equivalent positive shift)
+        shift += 26;
 
       // Apply the calculated shift to the current character
       s[i] = ((s[i] - 'a' + shift) % 26) + 'a';
