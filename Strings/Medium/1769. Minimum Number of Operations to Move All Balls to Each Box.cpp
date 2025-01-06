@@ -67,7 +67,6 @@ public:
   }
 };
 
-
 // Approach-2: Brute Force with O(1) space
 // Time Complexity: O(n^2) - Nested loops to calculate the operations for each ball
 // Space Complexity: O(1) - No extra space used apart from the output vector
@@ -95,5 +94,44 @@ public:
     }
 
     return answer; // Return the final vector with the minimum operations for each box
+  }
+};
+
+// Approach-3: Optimal Using Cumulative Sum
+// Time Complexity: O(n) - Efficiently calculates the result in a single traversal for each direction
+// Space Complexity: O(1) - No extra space used apart from the output vector
+class Solution
+{
+public:
+  vector<int> minOperations(string boxes)
+  {
+    int n = boxes.size();
+    vector<int> answer(n, 0);
+
+    int cumValue = 0;    // Keeps track of the number of balls encountered so far
+    int cumValueSum = 0; // Accumulates the total operations required for the left-to-right pass
+
+    // Left-to-Right Cumulative Sum Calculation
+    for (int i = 0; i < n; i++)
+    {
+      answer[i] = cumValueSum;             // Set the operations required so far for box i
+      cumValue += boxes[i] == '0' ? 0 : 1; // Add 1 to cumValue if the current box contains a ball
+      cumValueSum += cumValue;             // Update the cumulative operations sum
+    }
+
+    // Reset values for the Right-to-Left calculation
+    cumValueSum = 0; // Reset cumulative sum
+    cumValue = 0;    // Reset ball count
+
+    // Right-to-Left Cumulative Sum Calculation
+    for (int i = n - 1; i >= 0; i--)
+    {
+      answer[i] += cumValueSum;            // Add the operations from the right-to-left pass
+      cumValue += boxes[i] == '0' ? 0 : 1; // Add 1 to cumValue if the current box contains a ball
+      cumValueSum += cumValue;             // Update the cumulative operations sum
+    }
+
+    // Return the final vector with the minimum operations for each box
+    return answer;
   }
 };
