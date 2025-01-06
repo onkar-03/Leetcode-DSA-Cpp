@@ -36,3 +36,64 @@ public:
     return answer; // Return the result array containing the minimum operations for each box.
   }
 };
+
+// Approach-2: Brute Force with O(1) space
+// Time Complexity: O(n^2) - Nested loops to calculate the operations for each ball
+// Space Complexity: O(1) - No extra space used apart from the output vector
+class Solution
+{
+public:
+  vector<int> minOperations(string boxes)
+  {
+    int n = boxes.length();
+
+    // Initialize the answer vector with 0 for all positions
+    vector<int> answer(n, 0);
+
+    // Iterate through each box to check if it contains a ball ('1')
+    for (int i = 0; i < n; i++)
+    {
+      if (boxes[i] == '1')
+      { // If the current box has a ball
+        // Update the operations required to move this ball to every other box
+        for (int j = 0; j < n; j++)
+        {
+          answer[j] += abs(j - i); // Add the distance between box i and box j
+        }
+      }
+    }
+
+    return answer; // Return the final vector with the minimum operations for each box
+  }
+};
+
+
+// Approach-2: Brute Force with O(1) space
+// Time Complexity: O(n^2) - Nested loops to calculate the operations for each ball
+// Space Complexity: O(1) - No extra space used apart from the output vector
+class Solution
+{
+public:
+  vector<int> minOperations(string boxes)
+  {
+    int n = boxes.length();
+
+    // Initialize the answer vector with 0 for all positions
+    vector<int> answer(n, 0);
+
+    // Iterate through each box to check if it contains a ball ('1')
+    for (int i = 0; i < n; i++)
+    {
+      if (boxes[i] == '1')
+      { // If the current box has a ball
+        // Update the operations required to move this ball to every other box
+        for (int j = 0; j < n; j++)
+        {
+          answer[j] += abs(j - i); // Add the distance between box i and box j
+        }
+      }
+    }
+
+    return answer; // Return the final vector with the minimum operations for each box
+  }
+};
