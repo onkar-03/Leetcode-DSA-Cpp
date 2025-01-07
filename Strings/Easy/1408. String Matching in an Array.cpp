@@ -50,3 +50,118 @@ public:
     return result;
   }
 };
+
+// Approach-2 (Using KMP Algorithm)
+// T.C: O(m * n^2), where m = length of the longest string in words, n = size of words
+// S.C: O(m), space used for the LPS array
+class Solution
+{
+public:
+  // Function to compute the LPS (Longest Proper Prefix which is also Suffix) array
+  void computeLPS(string pattern, vector<int> &lps)
+  {
+    int M = pattern.length();
+    int len = 0; // Length of the previous longest prefix which is also a suffix
+
+    lps[0] = 0; // No proper prefix for the first character
+
+    int i = 1; // Start calculating LPS from the second character
+    while (i < M)
+    {
+      if (pattern[i] == pattern[len])
+      {
+        // Characters match, so we extend the current prefix
+        len++;
+        lps[i] = len;
+        i++;
+      }
+      else
+      {
+        // Characters do not match
+        if (len != 0)
+        {
+          // Move to the last known longest prefix length
+          len = lps[len - 1];
+        }
+        else
+        {
+          // No prefix matches, set LPS[i] to 0
+          lps[i] = 0;
+          i++;
+        }
+      }
+    }
+  }
+
+  // Function to search for a pattern `pat` within a text `txt` using the KMP algorithm
+  bool searchKMP(string pat, string txt)
+  {
+    int N = txt.length();
+    int M = pat.length();
+
+    // Create the LPS array for the pattern
+    vector<int> lps(M, 0);
+    computeLPS(pat, lps);
+
+    int i = 0; // Pointer for text
+    int j = 0; // Pointer for pattern
+
+    while (i < N)
+    {
+      if (pat[j] == txt[i])
+      {
+        // Characters match, move both pointers forward
+        i++;
+        j++;
+      }
+
+      if (j == M)
+      {
+        // Full pattern found in the text
+        return true;
+      }
+      else if (i < N && pat[j] != txt[i])
+      {
+        // Characters do not match
+        if (j != 0)
+        {
+          // Move the pattern pointer back using the LPS array
+          j = lps[j - 1];
+        }
+        else
+        {
+          // If no prefix match, move the text pointer forward
+          i++;
+        }
+      }
+    }
+
+    return false; // Pattern not found
+  }
+
+  // Function to find all strings in `words` that are substrings of another string in the list
+  vector<string> stringMatching(vector<string> &words)
+  {
+    int n = words.size();
+    vector<string> result;
+
+    // Compare each word with every other word in the list
+    for (int i = 0; i < n; i++)
+    {
+      for (int j = 0; j < n; j++)
+      {
+        if (i == j)
+          continue; // Skip comparing the word with itself
+
+        // Check if `words[i]` is a substring of `words[j]` using KMP
+        if (searchKMP(words[i], words[j]))
+        {
+          result.push_back(words[i]);
+          break; // Once found, move to the next word
+        }
+      }
+    }
+
+    return result; // Return the list of matching substrings
+  }
+};
