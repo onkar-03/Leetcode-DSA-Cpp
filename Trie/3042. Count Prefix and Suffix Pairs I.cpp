@@ -47,3 +47,43 @@ public:
     return count; // Return the total count of prefix-suffix pairs
   }
 };
+
+// Approach: Brute Force with Substring Comparison .substr()
+// Time Complexity: O(n^2 * l)
+// - Outer loop runs n times, and the inner loop runs n/2 times on average, resulting in O(n^2).
+// - String operations `substr` take O(l), where l is the length of the string.
+// - Total: O(n^2 * l)
+
+// Space Complexity: O(1)
+// - No extra data structures are used, and only temporary variables are created.
+class solution
+{
+public:
+  int countPrefixSuffixPairs(vector<string> &words)
+  {
+    int count = 0; // Initialize a counter to keep track of valid prefix-suffix pairs
+
+    // Outer loop to iterate through each word in the list
+    for (int i = 0; i < words.size(); i++)
+    {
+      // Inner loop starts from i + 1 to ensure we only compare pairs (i, j) where i < j
+      for (int j = i + 1; j < words.size(); j++)
+      {
+        string str1 = words[i]; // Current word at index i
+        string str2 = words[j]; // Current word at index j
+
+        int n = str1.length(); // Length of str1
+        int m = str2.length(); // Length of str2
+
+        // Check if str1 is both a prefix and suffix of str2
+        // Use substr to extract the prefix and suffix of str2
+        if (str2.substr(0, n) == str1 && str2.substr(m - n, n) == str1)
+        {
+          count++; // Increment the count for valid prefix-suffix pairs
+        }
+      }
+    }
+
+    return count; // Return the total count of prefix-suffix pairs
+  }
+};
