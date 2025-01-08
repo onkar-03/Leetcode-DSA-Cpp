@@ -1,9 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#include <bits/stdc++.h>
-using namespace std;
-
 // Approach-1 (Brute Force)
 // Time Complexity (T.C): O(m * n^2)
 // - m = length of the longest string in the words vector.
@@ -57,7 +54,6 @@ public:
 class Solution
 {
 public:
-  // Function to compute the LPS (Longest Proper Prefix which is also Suffix) array
   void computeLPS(string pattern, vector<int> &lps)
   {
     int M = pattern.length();
@@ -75,9 +71,10 @@ public:
         lps[i] = len;
         i++;
       }
+      // Characters do not match
       else
       {
-        // Characters do not match
+        // If length is still not 0
         if (len != 0)
         {
           // Move to the last known longest prefix length
@@ -93,7 +90,6 @@ public:
     }
   }
 
-  // Function to search for a pattern `pat` within a text `txt` using the KMP algorithm
   bool searchKMP(string pat, string txt)
   {
     int N = txt.length();
@@ -108,21 +104,24 @@ public:
 
     while (i < N)
     {
+      // CHaracters Match
       if (pat[j] == txt[i])
       {
-        // Characters match, move both pointers forward
+        // As characters match, move both pointers forward
         i++;
         j++;
       }
 
+      // Full pattern found in the text
       if (j == M)
       {
-        // Full pattern found in the text
         return true;
       }
+
+      // Characters do not match
       else if (i < N && pat[j] != txt[i])
       {
-        // Characters do not match
+        // Only is j is not zero we assign value to j of its previous index
         if (j != 0)
         {
           // Move the pattern pointer back using the LPS array
@@ -139,7 +138,6 @@ public:
     return false; // Pattern not found
   }
 
-  // Function to find all strings in `words` that are substrings of another string in the list
   vector<string> stringMatching(vector<string> &words)
   {
     int n = words.size();
