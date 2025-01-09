@@ -48,7 +48,7 @@ public:
   }
 };
 
-// Approach: Brute Force with Substring Comparison .substr()
+// Approach 2: Brute Force with Substring Comparison .substr()
 // Time Complexity: O(n^2 * l)
 // - Outer loop runs n times, and the inner loop runs n/2 times on average, resulting in O(n^2).
 // - String operations `substr` take O(l), where l is the length of the string.
@@ -88,7 +88,7 @@ public:
   }
 };
 
-// Approach-2 - Using TRIE
+// Approach-3 - Using TRIE
 // T.C : ~O(n^2*l), n = number of words, l = average length of each word
 // S.C : ~O(n*l), need to store all characters of words
 
