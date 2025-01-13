@@ -21,15 +21,15 @@ public:
    * @param i       Current index in the segment tree.
    * @param l       Left bound of the current segment.
    * @param r       Right bound of the current segment.
-   * @param SegTree The segment tree vector.
+   * @param segTree The segment tree vector.
    * @param arr     The input array for which the segment tree is being built.
    */
-  void buildTree(int i, int l, int r, vector<int> &SegTree, int arr[])
+  void buildSegTree(int i, int l, int r, vector<int> &segTree, int arr[])
   {
     // Base case: if the segment represents a single element
     if (l == r)
     {
-      SegTree[i] = arr[l]; // Store the array value in the segment tree
+      segTree[i] = arr[l]; // Store the array value in the segment tree
       return;
     }
 
@@ -37,11 +37,11 @@ public:
     int mid = l + (r - l) / 2;
 
     // Recursively build the left and right children
-    buildTree(2 * i + 1, l, mid, SegTree, arr);     // Left child
-    buildTree(2 * i + 2, mid + 1, r, SegTree, arr); // Right child
+    buildSegTree(2 * i + 1, l, mid, segTree, arr);     // Left child
+    buildSegTree(2 * i + 2, mid + 1, r, segTree, arr); // Right child
 
     // Combine the results of the left and right children
-    SegTree[i] = SegTree[2 * i + 1] + SegTree[2 * i + 2];
+    segTree[i] = segTree[2 * i + 1] + segTree[2 * i + 2];
   }
 
   /**
@@ -52,10 +52,10 @@ public:
    * @param i       Current index in the segment tree.
    * @param l       Left bound of the current segment.
    * @param r       Right bound of the current segment.
-   * @param SegTree The segment tree vector.
+   * @param segTree The segment tree vector.
    * @return        The sum of elements in the range [s, e].
    */
-  int query(int s, int e, int i, int l, int r, vector<int> &SegTree)
+  int query(int s, int e, int i, int l, int r, vector<int> &segTree)
   {
     // Case 1: No overlap between the current segment and query range
     if (l > e || r < s)
@@ -66,14 +66,14 @@ public:
     // Case 2: Complete overlap of the current segment with the query range
     if (s <= l && e >= r)
     {
-      return SegTree[i]; // Return the precomputed sum of this segment
+      return segTree[i]; // Return the precomputed sum of this segment
     }
 
     // Case 3: Partial overlap - recurse into left and right children
     int mid = l + (r - l) / 2; // Calculate the midpoint of the current segment
 
     // Combine the results from the left and right children
-    return query(s, e, 2 * i + 1, l, mid, SegTree) + query(s, e, 2 * i + 2, mid + 1, r, SegTree);
+    return query(s, e, 2 * i + 1, l, mid, segTree) + query(s, e, 2 * i + 2, mid + 1, r, segTree);
   }
 
   /**
@@ -88,10 +88,10 @@ public:
   vector<int> querySum(int n, int arr[], int q, int queries[])
   {
     // Step 1: Initialize the segment tree with a size of 4 * n
-    vector<int> SegTree(4 * n, 0);
+    vector<int> segTree(4 * n, 0);
 
     // Step 2: Build the segment tree
-    buildTree(0, 0, n - 1, SegTree, arr);
+    buildSegTree(0, 0, n - 1, segTree, arr);
 
     // Step 3: Initialize a result vector to store the query results
     vector<int> result;
@@ -104,7 +104,7 @@ public:
       int end = queries[i + 1] - 1;
 
       // Query the segment tree for the sum in the range [start, end]
-      result.push_back(query(start, end, 0, 0, n - 1, SegTree));
+      result.push_back(query(start, end, 0, 0, n - 1, segTree));
     }
 
     // Step 5: Return the results of all queries

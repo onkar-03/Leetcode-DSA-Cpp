@@ -7,10 +7,10 @@ using namespace std;
  * @param i       Current index in the segment tree.
  * @param l       Left bound of the current segment.
  * @param r       Right bound of the current segment.
- * @param SegTree The segment tree array that stores the computed range minima.
+ * @param segTree The segment tree array that stores the computed range minima.
  * @param arr     The input array for which the segment tree is being built.
  */
-void buildTree(int i, int l, int r, int segTree[], int arr[])
+void buildSegTree(int i, int l, int r, int segTree[], int arr[])
 {
   // Base case: If the range is a single element, store the element in the segment tree
   if (l == r)
@@ -24,8 +24,8 @@ void buildTree(int i, int l, int r, int segTree[], int arr[])
   int mid = l + (r - l) / 2;
 
   // Recursively build the left and right child subtrees
-  buildTree(2 * i + 1, l, mid, segTree, arr);     // Left child
-  buildTree(2 * i + 2, mid + 1, r, segTree, arr); // Right child
+  buildSegTree(2 * i + 1, l, mid, segTree, arr);     // Left child
+  buildSegTree(2 * i + 2, mid + 1, r, segTree, arr); // Right child
 
   // After the left and right subtrees are built, compute the minimum value for the current node
   segTree[i] = min(segTree[2 * i + 1], segTree[2 * i + 2]);
@@ -44,7 +44,7 @@ int *constructST(int arr[], int n)
   int *segTree = new int[4 * n];
 
   // Build the segment tree using the helper function
-  buildTree(0, 0, n - 1, segTree, arr);
+  buildSegTree(0, 0, n - 1, segTree, arr);
 
   // Return the constructed segment tree
   return segTree;
