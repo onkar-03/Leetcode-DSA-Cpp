@@ -83,3 +83,49 @@ public:
     return result; // Return the result vector containing prefix common element counts
   }
 };
+
+// Approach-3 (Optimal Approach usign map)
+// Time Complexity: O(n) - We traverse the arrays A and B once.
+// Space Complexity: O(n) - To store elements and their frequencies in the hash map.
+class Solution
+{
+public:
+  vector<int> findThePrefixCommonArray(vector<int> &A, vector<int> &B)
+  {
+    int n = A.size(); // Get the size of the input arrays
+
+    // Result vector to store the number of common elements for each prefix
+    vector<int> result(n);
+
+    // Hash map to track the frequency of elements across A and B
+    unordered_map<int, int> mp;
+
+    int count = 0; // Counter to store the number of common elements
+
+    // Iterate through each element of the arrays
+    for (int i = 0; i < n; i++)
+    {
+      // Update the frequency of the current element from A
+      mp[A[i]]++;
+      // It says its a permutation meaning it appears exactly once in each array
+      // So if the element appears twice (once in A and once in B), it is a common element
+      if (mp[A[i]] == 2)
+      {
+        count++;
+      }
+
+      // Update the frequency of the current element from B
+      mp[B[i]]++;
+      // If the element appears twice (once in A and once in B), it is a common element
+      if (mp[B[i]] == 2)
+      {
+        count++;
+      }
+
+      // Store the count of common elements for the current prefix
+      result[i] = count;
+    }
+
+    return result; // Return the result vector containing prefix common element counts
+  }
+};
