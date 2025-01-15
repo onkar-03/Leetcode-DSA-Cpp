@@ -83,3 +83,70 @@ public:
               // with num2
   }
 };
+
+// Approach-2 (Directly build result x)
+// Time Complexity: O(log(n)) where 'n' is the number of bits in the integers
+// For any number the number of bits required to represent it is Log(n)
+// Hence in worst case we traverse the whole number i.e. log(n)
+// Space Complexity: O(1) as the solution modifies the input number in pla
+class Solution
+{
+public:
+  // Function to check if a bit at position 'bit' is set (1) in number 'x'
+  bool isSet(int &x, int bit)
+  {
+    return x & (1 << bit); // Perform bitwise AND to check if the bit is set
+  }
+
+  // Function to set the bit at position 'bit' in number 'x' to 1
+  bool setBit(int &x, int bit)
+  {
+    return x |= (1 << bit); // Perform bitwise OR to set the bit to 1
+  }
+
+  // Function to unset (clear) the bit at position 'bit' in number 'x' to 0
+  bool unsetBit(int &x, int bit)
+  {
+    return x &= ~(1 << bit); // Perform bitwise AND with negation to clear the bit
+  }
+
+  // Function to check if a bit at position 'bit' is unset (0) in number 'x'
+  bool isUnset(int x, int bit)
+  {
+    return (x & (1 << bit)) == 0; // Return true if the bit is unset (0)
+  }
+
+  // Function to minimize XOR by adjusting the number of set bits in 'num1' to match 'num2'
+  int minimizeXor(int num1, int num2)
+  {
+    int x = 0; // Initialize result variable x to 0
+
+    // Count the number of set bits in num2
+    int requiredSetBitCount = __builtin_popcount(num2);
+
+    // First pass: Try to match the required set bits from the left (31 to 0)
+    for (int bit = 31; bit >= 0 && requiredSetBitCount > 0; bit--)
+    {
+      // If the current bit is set in num1, set it in the result x
+      if (isSet(num1, bit))
+      {
+        setBit(x, bit);        // Set the corresponding bit in x
+        requiredSetBitCount--; // Decrease the required set bit count
+      }
+    }
+
+    // Second pass: If more set bits are still needed, set them from the right (0 to 31)
+    for (int bit = 0; bit < 32 && requiredSetBitCount > 0; bit++)
+    {
+      // If the current bit is unset in num1, set it in the result x
+      // if (isUnset(num1, bit)) || if (!isSet(num1, bit)) both do the same job
+      if (!isSet(num1, bit))
+      {
+        setBit(x, bit);        // Set the corresponding bit in x
+        requiredSetBitCount--; // Decrease the required set bit count
+      }
+    }
+
+    return x; // Return the modified result x that minimizes the XOR with num2
+  }
+};
