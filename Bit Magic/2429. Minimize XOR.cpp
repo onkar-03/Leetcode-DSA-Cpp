@@ -2,13 +2,10 @@
 using namespace std;
 
 // Approach-1 (Starting from num1 and then forming result)
-
 // Time Complexity: O(log(n)) where 'n' is the number of bits in the integers
 // For any number the number of bits required to represent it is Log(n)
 // Hence in worst case we traverse the whole number i.e. log(n)
-
 // Space Complexity: O(1) as the solution modifies the input number in place
-
 class Solution
 {
 public:
@@ -45,10 +42,11 @@ public:
     int currentSetBits =
         __builtin_popcount(x); // The current number of set bits in x
 
-    int bit = 0; // Bit position starts from 0 (rightmost bit)
+    // Bit position starts from 0 (rightmost bit)
+    // This is to minimize the value of final resultant number we get
+    int bit = 0;
 
-    // If current set bits in 'x' are fewer than required set bits, we need
-    // to add more set bits
+    // If current set bits in 'x' are fewer than required set bits, we need to add more set bits
     if (currentSetBits < requiredSetBits)
     {
       while (currentSetBits < requiredSetBits)
@@ -125,6 +123,7 @@ public:
     int requiredSetBitCount = __builtin_popcount(num2);
 
     // First pass: Try to match the required set bits from the left (31 to 0)
+    // The catch is to make the same bits as set as that ofnums1 so that when we XOR the result is 0 i.e minimal which we want
     for (int bit = 31; bit >= 0 && requiredSetBitCount > 0; bit--)
     {
       // If the current bit is set in num1, set it in the result x
@@ -136,6 +135,7 @@ public:
     }
 
     // Second pass: If more set bits are still needed, set them from the right (0 to 31)
+    // Now even after setting all the bits of nums1 as set if we are left with more bits i.e. requiredSetBitCount > curretbitcount then we can set the remaining bits to 0 as we want to minimize the result
     for (int bit = 0; bit < 32 && requiredSetBitCount > 0; bit++)
     {
       // If the current bit is unset in num1, set it in the result x
