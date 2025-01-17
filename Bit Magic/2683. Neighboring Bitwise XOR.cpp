@@ -47,3 +47,26 @@ public:
     return false;
   }
 };
+
+// Approach-2: Simple observation of XOR property
+// Time Complexity: O(n) - Single traversal of the array
+// Space Complexity: O(1) - Constant space used
+class Solution
+{
+public:
+  bool doesValidArrayExist(vector<int> &derived)
+  {
+    // Initialize a variable to store the cumulative XOR of all elements
+    int XOR = 0;
+
+    // Traverse through the `derived` array and calculate the cumulative XOR
+    for (int &x : derived)
+    {
+      XOR = XOR ^ x; // Update XOR by XORing it with the current element
+    }
+
+    // Key observation:
+    // If the XOR of all elements in `derived` is 0, it means that the derived array is valid, and a possible original array exists. Return true if XOR is 0, otherwise return false
+    return XOR == 0;
+  }
+};
