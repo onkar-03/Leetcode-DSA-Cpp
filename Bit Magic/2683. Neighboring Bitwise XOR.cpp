@@ -70,3 +70,32 @@ public:
     return XOR == 0;
   }
 };
+
+// Approach-3: Count 1s to determine XOR result
+// Time Complexity: O(n) - Single traversal of the array
+// Space Complexity: O(1) - Constant space used
+class Solution
+{
+public:
+  bool doesValidArrayExist(vector<int> &derived)
+  {
+    // Initialize a variable to count the number of 1s in the array
+    int count = 0;
+
+    // Traverse through the `derived` array to count the number of 1s
+    for (int &x : derived)
+    {
+      if (x == 1)
+      {
+        count++; // Increment count if the current element is 1
+      }
+    }
+
+    // Key observation:
+    // XOR of all elements in an array is equivalent to checking if the number of 1s in the array is even or odd:
+    // - If the number of 1s is even, the XOR of all elements will be 0.
+    // - If the number of 1s is odd, the XOR of all elements will be 1.
+    // Therefore, a valid array exists if the count of 1s is even.
+    return count % 2 == 0; // Return true if the count of 1s is even, false otherwise
+  }
+};
