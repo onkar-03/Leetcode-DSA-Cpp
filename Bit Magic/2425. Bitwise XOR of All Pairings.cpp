@@ -13,7 +13,9 @@ public:
     int m = nums1.size(); // Size of nums1
     int n = nums2.size(); // Size of nums2
 
-    unordered_map<int, long> mp; // Map to store frequency contributions of each element
+    // Map to store frequency contributions of each element
+    // As frequency value can be very large hence we take long to store it
+    unordered_map<int, long> mp;
 
     // Step 1: Count the frequency of each element in nums1 multiplied by the size of nums2
     for (int &num : nums1)
@@ -35,8 +37,9 @@ public:
       int num = it.first;   // The number
       int freq = it.second; // Its total frequency across both arrays
 
+      // If frequency is odd
       if (freq % 2 != 0)
-      {                // If frequency is odd
+      {
         result ^= num; // Include the number in the XOR result
       }
     }

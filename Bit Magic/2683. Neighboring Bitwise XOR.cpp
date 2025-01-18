@@ -99,3 +99,31 @@ public:
     return count % 2 == 0; // Return true if the count of 1s is even, false otherwise
   }
 };
+
+// original = {a, b, c, d, e}
+// derived[] = {1, 0, 1, 0, 1}
+// Explanation:
+// - The `derived` array is constructed as follows:
+//   derived[0] = a ^ b
+//   derived[1] = b ^ c
+//   derived[2] = c ^ d
+//   derived[3] = d ^ e
+//   derived[4] = e ^ a
+
+// Observation:
+// - If we take the XOR of all elements in the `derived` array:
+//   derived[0] ^ derived[1] ^ derived[2] ^ derived[3] ^ derived[4]
+//   = (a ^ b) ^ (b ^ c) ^ (c ^ d) ^ (d ^ e) ^ (e ^ a)
+// - By the commutative and associative properties of XOR, the terms cancel out:
+//   (a ^ a) ^ (b ^ b) ^ (c ^ c) ^ (d ^ d) ^ (e ^ e) = 0
+// - Therefore, the XOR of all elements in `derived` will be `0` if the number of `1`s in the array is even.
+
+// Key Insight:
+// - Each `1` in `derived` corresponds to an XOR operation that resulted in `1`.
+// - If the number of `1`s in `derived` is even, the XOR of all elements will be `0`.
+// - If the number of `1`s is odd, the XOR of all elements will be `1`.
+
+// Conclusion:
+// - To determine if a valid original array exists, we simply count the number of `1`s in the `derived` array.
+// - If the count is even, a valid original array exists (XOR == 0).
+// - If the count is odd, no valid original array exists (XOR != 0).
