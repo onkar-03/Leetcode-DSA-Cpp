@@ -145,3 +145,76 @@ public:
     return -1; // Return -1 if no row or column gets completely painted.
   }
 };
+
+// Approach - 3 (Best Approach)
+// Time Complexity: O(m * n) - We iterate through the matrix once for rows and once for columns.
+// Space Complexity: O(m * n) - Due to the unordered_map to store the indices of elements in `arr`.
+class Solution
+{
+public:
+  int firstCompleteIndex(vector<int> &arr, vector<vector<int>> &mat)
+  {
+    // Get the number of rows in the matrix.
+    int m = mat.size();
+    // Get the number of columns in the matrix.
+    int n = mat[0].size();
+
+    // Create a map to store the index of each value in `arr`.
+    unordered_map<int, int> mp;
+
+    // Populate the map with the indices of the values in `arr`.
+    for (int i = 0; i < arr.size(); i++)
+    {
+      int val = arr[i];
+      mp[val] = i;
+    }
+
+    // Initialize the minimum index to the maximum possible value.
+    int minIndex = INT_MAX;
+
+    // Check each row one by one.
+    for (int row = 0; row < m; row++)
+    {
+      // Initialize the last index for this row as the smallest possible value.
+      int lastIndex = INT_MIN;
+
+      // Traverse through each column in the current row.
+      for (int col = 0; col < n; col++)
+      {
+        // Get the value at the current cell.
+        int val = mat[row][col];
+        // Get the index of the value in `arr` from the map.
+        int idx = mp[val];
+        // Update the last index for this row to the maximum index found so far.
+        lastIndex = max(lastIndex, idx);
+      }
+
+      // Update the minimum index with the smallest last index across all rows.
+      minIndex = min(minIndex, lastIndex);
+    }
+
+    // Check each column one by one.
+    for (int col = 0; col < n; col++)
+    {
+      // Initialize the last index for this column as the smallest possible value.
+      int lastIndex = INT_MIN;
+
+      // Traverse through each row in the current column.
+      for (int row = 0; row < m; row++)
+      {
+        // Get the value at the current cell.
+        int val = mat[row][col];
+        // Get the index of the value in `arr` from the map.
+        int idx = mp[val];
+        // Update the last index for this column to the maximum index found so far.
+        lastIndex = max(lastIndex, idx);
+      }
+
+      // Update the minimum index with the smallest last index across all columns.
+      minIndex = min(minIndex, lastIndex);
+    }
+
+    // Return the minimum index where either a row or a column is fully painted.
+    return minIndex;
+  }
+};
