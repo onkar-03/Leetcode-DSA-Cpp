@@ -28,3 +28,35 @@ public:
     // If no such pair is found (not needed in this case as problem guarantees one solution)
   }
 };
+
+// Approach-2: Hashing using Unordered Map
+// T.C : O(n) - We traverse the array only once, and for each element, we check if the complement exists in the map, which takes constant time (O(1)) on average.
+// S.C : O(n) - We use an unordered_map to store elements and their indices. In the worst case, the map will contain 'n' elements, where 'n' is the size of the input array.
+class Solution
+{
+public:
+  vector<int> twoSum(vector<int> &nums, int target)
+  {
+    int n = nums.size(); // Get the size of the input array
+
+    unordered_map<int, int> mp; // Create an unordered map (hash map) to store the element values and their indices
+
+    // Traverse through the array
+    for (int i = 0; i < n; i++)
+    {
+      int remaining = target - nums[i]; // Calculate the remaining value needed to reach the target
+
+      // If the remaining value is found in the map, we found the two indices
+      if (mp.find(remaining) != mp.end())
+      {
+        return {mp[remaining], i}; // Return the pair of indices that add up to the target
+      }
+
+      // Otherwise, store the current element's value and its index in the map
+      mp[nums[i]] = i;
+    }
+
+    // If no such pair is found, return an empty vector (edge case handling)
+    return {};
+  }
+};
