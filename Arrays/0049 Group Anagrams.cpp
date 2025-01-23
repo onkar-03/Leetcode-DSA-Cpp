@@ -59,8 +59,7 @@ public:
  * where k is the maximum length of a string in the input.
  *
  * Space Complexity: O(n * k)
- * - We store the strings in an unordered map, where the total number of characters stored is O(n * k),
- * and the strings themselves take O(k) space.
+ * - We store the strings in an unordered map, where the total number of characters stored is O(n * k), and the strings themselves take O(k) space.
  */
 class Solution
 {
