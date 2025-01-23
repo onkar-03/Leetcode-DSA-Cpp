@@ -2,7 +2,7 @@
 using namespace std;
 
 /*
- * Approach (Using Nested Loops)
+ * Approach-1: (Using Nested Loops)
  * ---------------------------
  * Time Complexity: O(n^2)
  * - In the worst case, we iterate over each element in the input array 'nums' (n elements).
@@ -10,10 +10,9 @@ using namespace std;
  *   of all other elements (excluding the current one). This results in a nested loop structure.
  * - Therefore, the overall time complexity is O(n^2) due to the double iteration.
  * ---------------------------
- * Space Complexity: O(n)
- * - We use an additional result array 'res' to store the products for each element, which requires
- *   O(n) space where n is the number of elements in 'nums'.
- * - No other significant additional space is used beyond this result array.
+ * Space Complexity: O(1)
+ * - We use only the result array to store final products, which requires O(n) space.
+ * - No additional arrays are used, so the space complexity is considered O(1) in terms of auxiliary space.
  */
 #include <vector>
 
@@ -47,7 +46,7 @@ public:
 };
 
 /*
- * Approach (Using Product Calculation, Divison with 0 Handling)
+ * Approach-2: (Using Product Calculation, Divison with 0 Handling)
  * ---------------------------
  * Time Complexity: O(n)
  * - We iterate through the input array 'nums' twice: once to calculate the product of all non-zero
@@ -56,10 +55,9 @@ public:
  *   calculated in the first pass (O(n)).
  * - Therefore, the overall time complexity is O(n).
  * ---------------------------
- * Space Complexity: O(n)
- * - We use an additional result array 'ans' to store the products for each element, which requires
- *   O(n) space where n is the number of elements in 'nums'.
- * - No other significant additional space is used beyond this result array.
+ * Space Complexity: O(1)
+ * - We use only the result array to store final products, which requires O(n) space.
+ * - No additional arrays are used, so the space complexity is considered O(1) in terms of auxiliary space.
  */
 
 #include <vector>
@@ -118,7 +116,7 @@ public:
 };
 
 /*
- * Approach (Using Prefix and Suffix Products)
+ * Approach-3: (Using Prefix and Suffix Products)
  * ---------------------------
  * Time Complexity: O(n)
  * - We iterate through the input array 'nums' three times: once to calculate the prefix products,
@@ -126,9 +124,7 @@ public:
  * - Each of these operations runs in O(n), leading to an overall time complexity of O(n).
  * ---------------------------
  * Space Complexity: O(n)
- * - We use two additional arrays, 'pref' and 'suff', to store the prefix and suffix products,
- *   each requiring O(n) space.
- * - The result array 'res' also requires O(n) space.
+ * - We use two additional arrays, 'pref' and 'suff', to store the prefix and suffix products, each requiring O(n) space.
  * - Therefore, the total space complexity is O(n).
  */
 
@@ -162,6 +158,50 @@ public:
     for (int i = 0; i < n; i++)
     {
       res[i] = pref[i] * suff[i]; // Final product for each index is prefix[i] * suffix[i]
+    }
+
+    return res; // Return the final result array
+  }
+};
+
+/*
+ * Approach (Optimal Prefix & Postfix Method)
+ * ---------------------------
+ * Time Complexity: O(n)
+ * - We iterate through the input array 'nums' twice: once to calculate the prefix products
+ *   directly into the result array, and once to calculate the postfix products while updating
+ *   the result array.
+ * - Therefore, the overall time complexity is O(n).
+ * ---------------------------
+ * Space Complexity: O(1)
+ * - We use only the result array to store final products, which requires O(n) space.
+ * - No additional arrays are used, so the space complexity is considered O(1) in terms of
+ *   auxiliary space.
+ */
+
+#include <vector>
+
+class Solution
+{
+public:
+  vector<int> productExceptSelf(vector<int> &nums)
+  {
+    int n = nums.size();   // Get the size of the input array
+    vector<int> res(n, 1); // Result array initialized to 1
+
+    // Step 1: Calculate prefix products directly in res
+    for (int i = 1; i < n; i++)
+    {
+      res[i] = res[i - 1] * nums[i - 1]; // Calculate prefix product up to index i
+    }
+
+    // Step 2: Calculate postfix products and multiply with prefix in res
+    // Variable to store postfix product
+    int postfix = 1;
+    for (int i = n - 1; i >= 0; i--)
+    {
+      res[i] *= postfix;  // Multiply with current postfix product
+      postfix *= nums[i]; // Update postfix product for next iteration
     }
 
     return res; // Return the final result array
