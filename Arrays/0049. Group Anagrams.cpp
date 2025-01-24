@@ -52,7 +52,7 @@ public:
 };
 
 /*
- * Approach-2 (Using Frequency Array and Mapping)
+ * Approach-2 (Using Frequency Array & Mapping)
  * ---------------------------
  * Time Complexity: O(n * k)
  * - We iterate over each string in the input (n strings). For each string, we count the frequency of characters, which takes O(k),
