@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
+
 /*
  * Approach: Count Pivot
  * - The array is sorted but might be rotated at some pivot.
