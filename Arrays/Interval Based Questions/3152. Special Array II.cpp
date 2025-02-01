@@ -30,9 +30,11 @@ public:
     // Step 2: Build the cumulative sum array.
     for (int i = 1; i < n; i++)
     {
-      if (nums[i] % 2 == nums[i - 1] % 2) // Check if consecutive elements have the same parity
+      // Check if consecutive elements have the same parity
+      if (nums[i] % 2 == nums[i - 1] % 2)
       {
-        cumSum[i] = cumSum[i - 1] + 1; // Increment the count of violating indices
+        // Increment the count of violating indices
+        cumSum[i] = cumSum[i - 1] + 1;
       }
       else
       {
@@ -42,7 +44,9 @@ public:
 
     // Step 3: Process each query to check if the subarray is "special"
     vector<bool> result(m, false); // Store results for each query
-    int i = 0;                     // Query index
+
+    // Query index
+    int i = 0;
 
     for (vector<int> &query : queries)
     {
@@ -180,7 +184,8 @@ public:
     int m = queries.size(); // Number of queries
     int n = nums.size();    // Size of the array
 
-    vector<int> vi; // List to store violating indices
+    // List to store violating indices
+    vector<int> vi;
 
     // Step 1: Build the list of violating indices (O(n))
     for (int i = 1; i < n; i++)
