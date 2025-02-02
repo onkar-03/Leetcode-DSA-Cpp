@@ -161,6 +161,7 @@ public:
       last--; // Move the last pointer in nums1
     }
 
+    // Case to handle when nums1 is empty but nums2 isnt
     // If there are any remaining elements in nums2, copy them over
     while (n > 0)
     {
