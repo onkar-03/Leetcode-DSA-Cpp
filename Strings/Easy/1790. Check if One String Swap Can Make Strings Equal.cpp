@@ -118,3 +118,59 @@ public:
     return true;
   }
 };
+
+/*
+ * Approach-2 (Using Counting Only. No Map Required)
+ * - This approach checks if two strings are almost equal by counting the positions where characters differ. If they are already equal, we return true immediately.
+ * - We then iterate through both strings, counting the differing positions. If there are more than two differing positions, we return false (since only one swap is allowed).
+ * - We store the indices of the first two mismatches and check if swapping the characters at these indices can make the strings equal.
+ * ---------------------------
+ * T.C : O(n) - We iterate through the strings once (O(n)) to count the number of mismatches and store the indices of the first two mismatches
+ * ---------------------------
+ * S.C : O(1) - Only a few integer variables are used to track the mismatches, which is constant space.
+ */
+class Solution
+{
+public:
+  bool areAlmostEqual(string s1, string s2)
+  {
+    int n = s1.length(); // Get the length of the strings
+
+    // If the strings are already equal, return true
+    if (s1 == s2)
+    {
+      return true;
+    }
+
+    int diffs = 0;     // Count of differing positions
+    int firstIdx = 0;  // Store the first mismatch index
+    int secondIdx = 0; // Store the second mismatch index
+
+    // Traverse through the strings
+    for (int i = 0; i < n; i++)
+    {
+      // If the characters are different at the current position
+      if (s1[i] != s2[i])
+      {
+        diffs++; // Increment the mismatch count
+
+        // If there are more than two mismatches, return false
+        if (diffs > 2)
+        {
+          return false;
+        }
+        else if (diffs == 1)
+        {
+          firstIdx = i; // Store the first mismatch index
+        }
+        else
+        {
+          secondIdx = i; // Store the second mismatch index
+        }
+      }
+    }
+
+    // If there are exactly two mismatches, check if swapping can make the strings equal
+    return s1[firstIdx] == s2[secondIdx] && s1[secondIdx] == s2[firstIdx];
+  }
+};
