@@ -125,3 +125,48 @@ public:
     return result;
   }
 };
+
+/*
+ * Approach-3 (Using string as a stack)
+ * - We use a string `result` as a stack to build the modified string.
+ * - We iterate through `s`, adding each character to `result`.
+ * - If the last `n` characters in `result` match `part`, we remove them.
+ * - This mimics a stack-based approach but uses string operations.
+ * --------------------
+ * T.C : O(m * n)
+ * - Each character is appended to `result`, which takes O(m).
+ * - Checking for `part` using `substr()` takes O(n) in the worst case.
+ * - In total, the complexity is O(m * n).
+ * --------------------
+ * S.C : O(1) (excluding result storage)
+ * - We modify `result` in place without extra space.
+ */
+class Solution
+{
+public:
+  string removeOccurrences(string s, string part)
+  {
+    // String used as a stack to build the modified result
+    string result = "";
+
+    // Length of the substring `part`
+    int n = part.length();
+
+    // Traverse each character in `s`
+    for (char &ch : s)
+    {
+      // Add the current character to `result`
+      result.push_back(ch);
+
+      // Check if the last `n` characters in `result` match `part`
+      if (result.length() >= n && result.substr(result.length() - n) == part)
+      {
+        // Remove the last `n` characters if they match `part`
+        result.erase(result.length() - n);
+      }
+    }
+
+    // Return the final modified string
+    return result;
+  }
+};
