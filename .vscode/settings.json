@@ -26,6 +26,7 @@
     "chrono": "cpp",
     "algorithm": "cpp",
     "array": "cpp",
-    "regex": "cpp"
+    "regex": "cpp",
+    "ostream": "cpp"
   }
 }

@@ -129,7 +129,7 @@ public:
 };
 
 /*
- * Approach-4 (In-place Modification)
+ * Approach-4 (O(N) In-place Modification)
  * - We use two pointers (`i` for traversal, `j` for writing valid characters).
  * - If the character is a **digit**, we remove the last added character by decrementing `j`.
  * - Otherwise, we copy the character to `s[j]` and increment `j`.
