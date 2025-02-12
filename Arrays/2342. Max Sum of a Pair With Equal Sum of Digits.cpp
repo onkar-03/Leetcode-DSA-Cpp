@@ -114,3 +114,62 @@ public:
     return result;
   }
 };
+
+/*
+ * Approach-3 (Optimal array as Map of constant size)
+ * - Use an array of fixed size (82) to store the largest number for each digit sum.
+ * - If a number with the same digit sum exists, compute the sum and update the maximum result.
+ * - Update the array with the maximum value for that digit sum.
+ *
+ * T.C: O(N * M)
+ * - We iterate through the array once (O(N)), and for each number, we compute its digit sum (O(M)),
+ *   where M is the number of digits in the largest number (≈ log(num)).
+ *
+ * S.C: O(1)
+ * - The extra space used is constant (array of size 82).
+ * ----------------------------
+ */
+
+class Solution
+{
+public:
+  int getDigitSum(int num)
+  {
+    int sum = 0;
+
+    while (num > 0)
+    {
+      sum += (num % 10);
+      num /= 10;
+    }
+
+    return sum;
+  }
+
+  int maximumSum(vector<int> &nums)
+  {
+    int n = nums.size();
+
+    // Initialize result to -1 (in case no valid pair exists)
+    int result = -1;
+
+    // Array used as a fixed-size map for storing max number per digit sum
+    int mp[82] = {0};
+
+    for (int i = 0; i < n; i++)
+    {
+      int digitSum = getDigitSum(nums[i]);
+
+      // If a number with the same digit sum exists, compute max sum
+      if (mp[digitSum] > 0)
+      {
+        result = max(result, nums[i] + mp[digitSum]);
+      }
+
+      // Update the array with the maximum number for this digit sum
+      mp[digitSum] = max(mp[digitSum], nums[i]);
+    }
+
+    return result;
+  }
+};
